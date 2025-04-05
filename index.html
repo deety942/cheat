@@ -90,11 +90,9 @@
     <button onclick="downloadHTML()">Download Updated HTML</button>
   </div>
 
-  <script>
-    const productsScript = document.createElement('script');
-    productsScript.id = "productsData";
-    document.head.appendChild(productsScript);
+  <script id="productsData" type="application/json">{}</script>
 
+  <script>
     let products = {};
 
     function loadProducts() {
@@ -108,6 +106,7 @@
       }
 
       const select = document.getElementById("productSelect");
+      select.innerHTML = '<option value="">-- Select Product --</option>';
       Object.keys(products).forEach(name => {
         const option = document.createElement("option");
         option.value = name;
@@ -131,12 +130,8 @@
       }
 
       products[name] = code;
-
-      const select = document.getElementById("productSelect");
-      const option = document.createElement("option");
-      option.value = name;
-      option.textContent = name;
-      select.appendChild(option);
+      updateProductsScript();
+      loadProducts();
 
       document.getElementById("productName").value = '';
       document.getElementById("eanCode").value = '';
@@ -192,9 +187,7 @@
     }
 
     function downloadHTML() {
-      const productDataScript = document.getElementById("productsData");
-      productDataScript.textContent = JSON.stringify(products);
-
+      updateProductsScript();
       const fullHTML = '<!DOCTYPE html>' + document.documentElement.outerHTML;
       const blob = new Blob([fullHTML], { type: "text/html" });
       const a = document.createElement("a");
@@ -203,8 +196,18 @@
       a.click();
     }
 
+    function updateProductsScript() {
+      let scriptTag = document.getElementById("productsData");
+      if (!scriptTag) {
+        scriptTag = document.createElement("script");
+        scriptTag.id = "productsData";
+        scriptTag.type = "application/json";
+        document.body.appendChild(scriptTag);
+      }
+      scriptTag.textContent = JSON.stringify(products);
+    }
+
     window.onload = loadProducts;
   </script>
-  <script id="productsData" type="application/json">{}</script>
 </body>
 </html>
