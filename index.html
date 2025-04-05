@@ -1,7 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
+
+<!DOCTYPE html><html lang="en"><head><style>body {transition: opacity ease-in 0.2s; } 
+body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
+</style>
+  <meta charset="UTF-8">
   <title>Muller CheatCode Scanner</title>
   <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
   <style>
@@ -67,20 +68,18 @@
   <!-- Add Product Form -->
   <div class="section">
     <h2>Add Product (EAN-13 Barcode)</h2>
-    <input type="text" id="productName" placeholder="Product Name" />
-    <input type="text" id="eanCode" placeholder="EAN-13 Barcode Number" />
+    <input type="text" id="productName" placeholder="Product Name">
+    <input type="text" id="eanCode" placeholder="EAN-13 Barcode Number">
     <button onclick="addProduct()">Add Product</button>
   </div>
 
   <!-- Product List -->
   <div class="section">
     <h2>Product Selector</h2>
-    <select id="productSelect" onchange="showProductBarcode()">
-      <option value="">-- Select Product --</option>
-    </select>
+    <select id="productSelect" onchange="showProductBarcode()"><option value="">-- Select Product --</option><option value="COOP ORGANIC STD 2">COOP ORGANIC STD 2</option><option value="MCCALLUM SEMI 2">MCCALLUM SEMI 2</option><option value="MCCALLUM SEMI 4">MCCALLUM SEMI 4</option><option value="MCCALLUM STD 1">MCCALLUM STD 1</option><option value="MM SEMI 2L">MM SEMI 2L</option><option value="MM STD 1">MM STD 1</option><option value="MM SEMI 1">MM SEMI 1</option></select>
     <div id="productDisplay">
-      <h3 id="selectedProductName"></h3>
-      <svg id="productBarcode"></svg>
+      <h3 id="selectedProductName">MCCALLUM STD 1</h3>
+      <svg id="productBarcode" width="234px" height="118px" x="0px" y="0px" viewBox="0 0 234 118" xmlns="http://www.w3.org/2000/svg" version="1.1" style="transform: translate(0,0)"><rect x="0" y="0" width="234" height="118" style="fill:#ffffff;"></rect><g transform="translate(10, 10)" style="fill:#000;"><text style="font: 16px monospace" text-anchor="start" x="0" y="98">4</text></g><g transform="translate(34, 10)" style="fill:#000;"><rect x="0" y="0" width="2" height="90"></rect><rect x="4" y="0" width="2" height="90"></rect><text style="font: 16px monospace" text-anchor="middle" x="3" y="108"></text></g><g transform="translate(40, 10)" style="fill:#000;"><rect x="6" y="0" width="4" height="80"></rect><rect x="12" y="0" width="2" height="80"></rect><rect x="22" y="0" width="2" height="80"></rect><rect x="26" y="0" width="2" height="80"></rect><rect x="32" y="0" width="4" height="80"></rect><rect x="40" y="0" width="2" height="80"></rect><rect x="44" y="0" width="2" height="80"></rect><rect x="52" y="0" width="4" height="80"></rect><rect x="64" y="0" width="2" height="80"></rect><rect x="68" y="0" width="2" height="80"></rect><rect x="72" y="0" width="4" height="80"></rect><rect x="80" y="0" width="4" height="80"></rect><text style="font: 16px monospace" text-anchor="middle" x="42" y="98">061461</text></g><g transform="translate(124, 10)" style="fill:#000;"><rect x="2" y="0" width="2" height="90"></rect><rect x="6" y="0" width="2" height="90"></rect><text style="font: 16px monospace" text-anchor="middle" x="5" y="108"></text></g><g transform="translate(134, 10)" style="fill:#000;"><rect x="0" y="0" width="4" height="80"></rect><rect x="6" y="0" width="4" height="80"></rect><rect x="14" y="0" width="2" height="80"></rect><rect x="18" y="0" width="6" height="80"></rect><rect x="28" y="0" width="6" height="80"></rect><rect x="36" y="0" width="2" height="80"></rect><rect x="42" y="0" width="2" height="80"></rect><rect x="48" y="0" width="6" height="80"></rect><rect x="56" y="0" width="2" height="80"></rect><rect x="62" y="0" width="6" height="80"></rect><rect x="70" y="0" width="2" height="80"></rect><rect x="78" y="0" width="2" height="80"></rect><text style="font: 16px monospace" text-anchor="middle" x="42" y="98">249557</text></g><g transform="translate(218, 10)" style="fill:#000;"><rect x="0" y="0" width="2" height="90"></rect><rect x="4" y="0" width="2" height="90"></rect><text style="font: 16px monospace" text-anchor="middle" x="3" y="108"></text></g></svg>
     </div>
   </div>
 
@@ -90,7 +89,7 @@
     <button onclick="downloadHTML()">Download Updated HTML</button>
   </div>
 
-  <script id="productsData" type="application/json">{}</script>
+  <script id="productsData" type="application/json">{"COOP ORGANIC STD 2":"5000128767941","MCCALLUM SEMI 2":"4061461250430","MCCALLUM SEMI 4":"4061461250737","MCCALLUM STD 1":"4061461249557","MM SEMI 2L":"5017600022184","MM STD 1":"5017600010211","MM SEMI 1":"5017600020418"}</script>
 
   <script>
     let products = {};
@@ -209,5 +208,6 @@
 
     window.onload = loadProducts;
   </script>
-</body>
-</html>
+
+
+<veepn-lock-screen><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style></veepn-lock-screen><veepn-guard-alert><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style></veepn-guard-alert></body></html>
