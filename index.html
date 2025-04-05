@@ -91,9 +91,22 @@
   </div>
 
   <script>
-    const products = JSON.parse(localStorage.getItem('eanProductList') || '{}');
+    const productsScript = document.createElement('script');
+    productsScript.id = "productsData";
+    document.head.appendChild(productsScript);
+
+    let products = {};
 
     function loadProducts() {
+      try {
+        const scriptTag = document.getElementById("productsData");
+        if (scriptTag && scriptTag.textContent) {
+          products = JSON.parse(scriptTag.textContent);
+        }
+      } catch (e) {
+        products = {};
+      }
+
       const select = document.getElementById("productSelect");
       Object.keys(products).forEach(name => {
         const option = document.createElement("option");
@@ -118,7 +131,6 @@
       }
 
       products[name] = code;
-      localStorage.setItem('eanProductList', JSON.stringify(products));
 
       const select = document.getElementById("productSelect");
       const option = document.createElement("option");
@@ -180,8 +192,11 @@
     }
 
     function downloadHTML() {
-      const htmlContent = document.documentElement.outerHTML;
-      const blob = new Blob([htmlContent], { type: "text/html" });
+      const productDataScript = document.getElementById("productsData");
+      productDataScript.textContent = JSON.stringify(products);
+
+      const fullHTML = '<!DOCTYPE html>' + document.documentElement.outerHTML;
+      const blob = new Blob([fullHTML], { type: "text/html" });
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
       a.download = "muller_cheatcode_scanner.html";
@@ -190,6 +205,6 @@
 
     window.onload = loadProducts;
   </script>
-
+  <script id="productsData" type="application/json">{}</script>
 </body>
 </html>
