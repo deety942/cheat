@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Muller CheatCode Scanner</title>
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff5f5;
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+      color: #333;
+    }
+    h1, h2 {
+      color: #d6001c;
+    }
+    .section {
+      background: #fff;
+      border: 2px solid #d6001c;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+    button {
+      padding: 10px 16px;
+      background-color: #d6001c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #b80018;
+    }
+    select, input {
+      padding: 8px;
+      margin: 5px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .barcode-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+    #productDisplay svg {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Muller CheatCode Scanner</h1>
+
+  <!-- Random ITF Generator -->
+  <div class="section">
+    <h2>Generate Random ITF Barcode</h2>
+    <button onclick="generateRandomITF()">Generate ITF</button>
+    <div class="barcode-container">
+      <svg id="itfBarcode"></svg>
+    </div>
+  </div>
+
+  <!-- Add Product Form -->
+  <div class="section">
+    <h2>Add Product (EAN-13 Barcode)</h2>
+    <input type="text" id="productName" placeholder="Product Name" />
+    <input type="text" id="eanCode" placeholder="EAN-13 Barcode Number" />
+    <button onclick="addProduct()">Add Product</button>
+  </div>
+
+  <!-- Product List -->
+  <div class="section">
+    <h2>Product Selector</h2>
+    <select id="productSelect" onchange="showProductBarcode()">
+      <option value="">-- Select Product --</option>
+    </select>
+    <div id="productDisplay">
+      <h3 id="selectedProductName"></h3>
+      <svg id="productBarcode"></svg>
+    </div>
+  </div>
+
+  <!-- Download Button -->
+  <div class="section">
+    <h2>Save This Page</h2>
+    <button onclick="downloadHTML()">Download Updated HTML</button>
+  </div>
+
+  <script>
+    const products = JSON.parse(localStorage.getItem('eanProductList') || '{}');
+
+    function loadProducts() {
+      const select = document.getElementById("productSelect");
+      Object.keys(products).forEach(name => {
+        const option = document.createElement("option");
+        option.value = name;
+        option.textContent = name;
+        select.appendChild(option);
+      });
+    }
+
+    function addProduct() {
+      const name = document.getElementById("productName").value.trim();
+      const code = document.getElementById("eanCode").value.trim();
+
+      if (!name || !code || code.length !== 13 || isNaN(code)) {
+        alert("Please enter a product name and valid 13-digit EAN code.");
+        return;
+      }
+
+      if (products[name]) {
+        alert("This product is already added.");
+        return;
+      }
+
+      products[name] = code;
+      localStorage.setItem('eanProductList', JSON.stringify(products));
+
+      const select = document.getElementById("productSelect");
+      const option = document.createElement("option");
+      option.value = name;
+      option.textContent = name;
+      select.appendChild(option);
+
+      document.getElementById("productName").value = '';
+      document.getElementById("eanCode").value = '';
+    }
+
+    function showProductBarcode() {
+      const name = document.getElementById("productSelect").value;
+      const code = products[name];
+
+      document.getElementById("selectedProductName").textContent = name || '';
+
+      if (!code) {
+        document.getElementById("productBarcode").innerHTML = '';
+        return;
+      }
+
+      JsBarcode("#productBarcode", code, {
+        format: "EAN13",
+        displayValue: true,
+        width: 2,
+        height: 80,
+        fontSize: 16,
+        lineColor: "#000",
+        margin: 10
+      });
+    }
+
+    function generateRandomITF() {
+      let code = "";
+      for (let i = 0; i < 13; i++) {
+        code += Math.floor(Math.random() * 10);
+      }
+      code += calculateCheckDigit(code);
+
+      JsBarcode("#itfBarcode", code, {
+        format: "ITF",
+        displayValue: true,
+        width: 2,
+        height: 80,
+        fontSize: 16,
+        lineColor: "#000",
+        margin: 10
+      });
+    }
+
+    function calculateCheckDigit(code) {
+      let sum = 0;
+      for (let i = 0; i < code.length; i++) {
+        const digit = parseInt(code[i]);
+        sum += (i % 2 === 0) ? digit * 3 : digit;
+      }
+      return (10 - (sum % 10)) % 10;
+    }
+
+    function downloadHTML() {
+      const htmlContent = document.documentElement.outerHTML;
+      const blob = new Blob([htmlContent], { type: "text/html" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "muller_cheatcode_scanner.html";
+      a.click();
+    }
+
+    window.onload = loadProducts;
+  </script>
+
+</body>
+</html>
