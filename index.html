@@ -1,85 +1,97 @@
-
-<!DOCTYPE html><html lang="en"><head><style>body {transition: opacity ease-in 0.2s; } 
-body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
-</style>
-  <meta charset="UTF-8">
-  <title>Muller CheatCode Scanner</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CheatCode Scanner</title>
   <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #fff5f5;
+      font-family: "Courier New", monospace;
+      background-color: #000;
+      color: #00FF00;
       max-width: 900px;
       margin: auto;
       padding: 20px;
-      color: #333;
     }
-    h1, h2 {
-      color: #d6001c;
+    h1, h2, h3 {
+      color: #00FF00;
     }
     .section {
-      background: #fff;
-      border: 2px solid #d6001c;
+      background: #001100;
+      border: 2px solid #00FF00;
       border-radius: 10px;
       padding: 20px;
       margin-bottom: 30px;
     }
     button {
       padding: 10px 16px;
-      background-color: #d6001c;
-      color: white;
-      border: none;
+      background-color: #003300;
+      color: #00FF00;
+      border: 1px solid #00FF00;
       border-radius: 5px;
       cursor: pointer;
       font-weight: bold;
     }
     button:hover {
-      background-color: #b80018;
+      background-color: #005500;
     }
     select, input {
       padding: 8px;
       margin: 5px;
       font-size: 16px;
-      border: 1px solid #ccc;
+      border: 1px solid #00FF00;
+      background: #001100;
+      color: #00FF00;
       border-radius: 4px;
     }
     .barcode-container {
       margin-top: 20px;
       text-align: center;
     }
-    #productDisplay svg {
+    #productDisplay svg, #bayBarcodeDisplay svg {
       margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
-  <h1>Muller CheatCode Scanner</h1>
-
-  <!-- Random ITF Generator -->
-  <div class="section">
-    <h2>Generate Random ITF Barcode</h2>
-    <button onclick="generateRandomITF()">Generate ITF</button>
-    <div class="barcode-container">
-      <svg id="itfBarcode"></svg>
-    </div>
-  </div>
+  <h1>CheatCode Scanner</h1>
 
   <!-- Add Product Form -->
   <div class="section">
-    <h2>Add Product (EAN-13 Barcode)</h2>
-    <input type="text" id="productName" placeholder="Product Name">
-    <input type="text" id="eanCode" placeholder="EAN-13 Barcode Number">
+    <h2>Add Product (EAN-8 or EAN-13)</h2>
+    <input type="text" id="productName" placeholder="Product Name" />
+    <input type="text" id="eanCode" placeholder="EAN Barcode Number (8 or 13 digits)" />
     <button onclick="addProduct()">Add Product</button>
   </div>
 
   <!-- Product List -->
   <div class="section">
     <h2>Product Selector</h2>
-    <select id="productSelect" onchange="showProductBarcode()"><option value="">-- Select Product --</option><option value="COOP ORGANIC STD 2">COOP ORGANIC STD 2</option><option value="MCCALLUM SEMI 2">MCCALLUM SEMI 2</option><option value="MCCALLUM SEMI 4">MCCALLUM SEMI 4</option><option value="MCCALLUM STD 1">MCCALLUM STD 1</option><option value="MM SEMI 2L">MM SEMI 2L</option><option value="MM STD 1">MM STD 1</option><option value="MM SEMI 1">MM SEMI 1</option></select>
+    <select id="productSelect" onchange="showProductBarcode()">
+      <option value="">-- Select Product --</option>
+    </select>
     <div id="productDisplay">
-      <h3 id="selectedProductName">MCCALLUM STD 1</h3>
-      <svg id="productBarcode" width="234px" height="118px" x="0px" y="0px" viewBox="0 0 234 118" xmlns="http://www.w3.org/2000/svg" version="1.1" style="transform: translate(0,0)"><rect x="0" y="0" width="234" height="118" style="fill:#ffffff;"></rect><g transform="translate(10, 10)" style="fill:#000;"><text style="font: 16px monospace" text-anchor="start" x="0" y="98">4</text></g><g transform="translate(34, 10)" style="fill:#000;"><rect x="0" y="0" width="2" height="90"></rect><rect x="4" y="0" width="2" height="90"></rect><text style="font: 16px monospace" text-anchor="middle" x="3" y="108"></text></g><g transform="translate(40, 10)" style="fill:#000;"><rect x="6" y="0" width="4" height="80"></rect><rect x="12" y="0" width="2" height="80"></rect><rect x="22" y="0" width="2" height="80"></rect><rect x="26" y="0" width="2" height="80"></rect><rect x="32" y="0" width="4" height="80"></rect><rect x="40" y="0" width="2" height="80"></rect><rect x="44" y="0" width="2" height="80"></rect><rect x="52" y="0" width="4" height="80"></rect><rect x="64" y="0" width="2" height="80"></rect><rect x="68" y="0" width="2" height="80"></rect><rect x="72" y="0" width="4" height="80"></rect><rect x="80" y="0" width="4" height="80"></rect><text style="font: 16px monospace" text-anchor="middle" x="42" y="98">061461</text></g><g transform="translate(124, 10)" style="fill:#000;"><rect x="2" y="0" width="2" height="90"></rect><rect x="6" y="0" width="2" height="90"></rect><text style="font: 16px monospace" text-anchor="middle" x="5" y="108"></text></g><g transform="translate(134, 10)" style="fill:#000;"><rect x="0" y="0" width="4" height="80"></rect><rect x="6" y="0" width="4" height="80"></rect><rect x="14" y="0" width="2" height="80"></rect><rect x="18" y="0" width="6" height="80"></rect><rect x="28" y="0" width="6" height="80"></rect><rect x="36" y="0" width="2" height="80"></rect><rect x="42" y="0" width="2" height="80"></rect><rect x="48" y="0" width="6" height="80"></rect><rect x="56" y="0" width="2" height="80"></rect><rect x="62" y="0" width="6" height="80"></rect><rect x="70" y="0" width="2" height="80"></rect><rect x="78" y="0" width="2" height="80"></rect><text style="font: 16px monospace" text-anchor="middle" x="42" y="98">249557</text></g><g transform="translate(218, 10)" style="fill:#000;"><rect x="0" y="0" width="2" height="90"></rect><rect x="4" y="0" width="2" height="90"></rect><text style="font: 16px monospace" text-anchor="middle" x="3" y="108"></text></g></svg>
+      <h3 id="selectedProductName"></h3>
+      <svg id="productBarcode"></svg>
+    </div>
+  </div>
+
+  <!-- Bay Door Barcodes -->
+  <div class="section">
+    <h2>Bay Doors</h2>
+    <select id="baySelect" onchange="showBayBarcode()">
+      <option value="">-- Select Bay --</option>
+      <option value="DD001">Bay 1 - DD001</option>
+      <option value="DD002">Bay 1 - DD002</option>
+      <option value="DD003">Bay 1 - DD003</option>
+      <option value="DD004">Bay 1 - DD004</option>
+      <option value="DD005">Bay 1 - DD005</option>
+    </select>
+    <div id="bayBarcodeDisplay">
+      <h3 id="selectedBayCode"></h3>
+      <svg id="bayBarcode"></svg>
     </div>
   </div>
 
@@ -89,27 +101,68 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
     <button onclick="downloadHTML()">Download Updated HTML</button>
   </div>
 
-  <script id="productsData" type="application/json">{"COOP ORGANIC STD 2":"5000128767941","MCCALLUM SEMI 2":"4061461250430","MCCALLUM SEMI 4":"4061461250737","MCCALLUM STD 1":"4061461249557","MM SEMI 2L":"5017600022184","MM STD 1":"5017600010211","MM SEMI 1":"5017600020418"}</script>
+  <script id="productsData" type="application/json">{
+    "products": {
+      "CO-OP STD 1P (BRI)": "5000128372350",
+      "CO-OP ORG STD 2L": "5000128767941",
+      "MCCAL SS 6P (SCO)": "4061461250928",
+      "MCCAL ORG SS2 (SCO)": "4061461251130",
+      "MM Semi 2L": "5017600022184",
+      "MM STD 2L": "5017600012178",
+      "MM STD 1L": "5017600010211",
+      "MM Semi 1L": "5017600020418",
+      "TESCO SS 4P (SCO)": "5000436589457",
+      "TESCO STD 4P (BRI)": "5000436589341",
+      "Dairy Manor SK 2L": "20152529",
+      "Dairy Manor SS 2L": "20108748",
+      "Dairy Manor SS 4L": "20017750",
+      "Dairy Manor SS 6L": "20472924",
+      "Dairy Manor STD 4L": "20017743",
+      "Dairy Manor ORG SS 2L": "4056489895169"
+    },
+    "order": [
+      "CO-OP STD 1P (BRI)",
+      "CO-OP ORG STD 2L",
+      "MCCAL SS 6P (SCO)",
+      "MCCAL ORG SS2 (SCO)",
+      "MM Semi 2L",
+      "MM STD 2L",
+      "MM STD 1L",
+      "MM Semi 1L",
+      "TESCO SS 4P (SCO)",
+      "TESCO STD 4P (BRI)",
+      "Dairy Manor SK 2L",
+      "Dairy Manor SS 2L",
+      "Dairy Manor SS 4L",
+      "Dairy Manor SS 6L",
+      "Dairy Manor STD 4L",
+      "Dairy Manor ORG SS 2L"
+    ]
+  }</script>
 
   <script>
     let products = {};
+    let productOrder = [];
 
     function loadProducts() {
       try {
         const scriptTag = document.getElementById("productsData");
         if (scriptTag && scriptTag.textContent) {
-          products = JSON.parse(scriptTag.textContent);
+          const data = JSON.parse(scriptTag.textContent);
+          products = data.products || {};
+          productOrder = data.order || Object.keys(products);
         }
       } catch (e) {
         products = {};
+        productOrder = [];
       }
 
       const select = document.getElementById("productSelect");
       select.innerHTML = '<option value="">-- Select Product --</option>';
-      Object.keys(products).forEach(name => {
+      productOrder.forEach(name => {
         const option = document.createElement("option");
         option.value = name;
-        option.textContent = name;
+        option.textContent = `${name}${products[name] ? ' - ' + products[name] : ''}`;
         select.appendChild(option);
       });
     }
@@ -118,17 +171,13 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
       const name = document.getElementById("productName").value.trim();
       const code = document.getElementById("eanCode").value.trim();
 
-      if (!name || !code || code.length !== 13 || isNaN(code)) {
-        alert("Please enter a product name and valid 13-digit EAN code.");
-        return;
-      }
-
-      if (products[name]) {
-        alert("This product is already added.");
+      if (!name || !code || (code.length !== 8 && code.length !== 13) || isNaN(code)) {
+        alert("Please enter a product name and valid EAN-8 or EAN-13 code.");
         return;
       }
 
       products[name] = code;
+      if (!productOrder.includes(name)) productOrder.push(name);
       updateProductsScript();
       loadProducts();
 
@@ -147,42 +196,45 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
         return;
       }
 
+      let format = '';
+      if (code.length === 8) {
+        format = 'EAN8';
+      } else if (code.length === 13) {
+        format = 'EAN13';
+      } else {
+        alert("Invalid barcode length. Must be 8 or 13 digits.");
+        return;
+      }
+
       JsBarcode("#productBarcode", code, {
-        format: "EAN13",
+        format: format,
         displayValue: true,
         width: 2,
         height: 80,
         fontSize: 16,
-        lineColor: "#000",
+        lineColor: "#000000",
+        background: "#00FF00",
         margin: 10
       });
     }
 
-    function generateRandomITF() {
-      let code = "";
-      for (let i = 0; i < 13; i++) {
-        code += Math.floor(Math.random() * 10);
+    function showBayBarcode() {
+      const bayCode = document.getElementById("baySelect").value;
+      document.getElementById("selectedBayCode").textContent = bayCode || '';
+      if (!bayCode) {
+        document.getElementById("bayBarcode").innerHTML = '';
+        return;
       }
-      code += calculateCheckDigit(code);
-
-      JsBarcode("#itfBarcode", code, {
-        format: "ITF",
+      JsBarcode("#bayBarcode", bayCode, {
+        format: 'CODE128',
         displayValue: true,
         width: 2,
         height: 80,
         fontSize: 16,
-        lineColor: "#000",
+        lineColor: "#000000",
+        background: "#00FF00",
         margin: 10
       });
-    }
-
-    function calculateCheckDigit(code) {
-      let sum = 0;
-      for (let i = 0; i < code.length; i++) {
-        const digit = parseInt(code[i]);
-        sum += (i % 2 === 0) ? digit * 3 : digit;
-      }
-      return (10 - (sum % 10)) % 10;
     }
 
     function downloadHTML() {
@@ -203,11 +255,10 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
         scriptTag.type = "application/json";
         document.body.appendChild(scriptTag);
       }
-      scriptTag.textContent = JSON.stringify(products);
+      scriptTag.textContent = JSON.stringify({ products, order: productOrder });
     }
 
     window.onload = loadProducts;
   </script>
-
-
-<veepn-lock-screen><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style></veepn-lock-screen><veepn-guard-alert><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style></veepn-guard-alert></body></html>
+</body>
+</html>
